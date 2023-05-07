@@ -1,0 +1,226 @@
+{% extends "newtemplate/layouts/base.html" %}
+{%load static%}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- [ Main Content ] start -->
+
+
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        {% if messages %}
+                        <ul class="messages">
+                            {% for message in messages %}
+                            <li
+                                    {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <div class="row">
+
+                            <!--[ Recent Users ] start-->
+
+
+                            <div class="col-xl-8 col-md-6">
+                                <div class="card Recent-Users">
+                                    <div class="card-header">
+                                        <a href="{%url 'list-of-users'%}">
+                                            <h5>Users</h5>
+                                        </a>
+
+                                    </div>
+                                    <div class="card-block px-0 py-3">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+
+                                                <tbody>
+                                                {%for user in users%}
+                                                <tr class="unread">
+                                                    <td><img src="{{user.avatar.url}}" class="rounded-circle"
+                                                             style="width:40px;"
+                                                             alt="activity-user">
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1">{{user.first_name}} {{user.last_name}}</h6>
+
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>{{user.created_at}}
+                                                        </h6>
+                                                    </td>
+                                                    {%if request.user.is_authenticated%}
+                                                    <td>
+                                                        <a href="{%url 'update-user' user.id %}"
+                                                           class="label theme-bg2 text-white f-12">Update</a>
+
+                                                        <a href="{% url 'delete' user.id %}"
+                                                           class="label theme-bg text-white f-12">Delete</a>
+
+                                                    </td>
+                                                    {%endif%}
+                                                </tr>
+                                                {%endfor%}
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-6">
+                                <div class="card Recent-Users">
+                                    <div class="card-header">
+                                        <a href="{%url 'list-of-cars'%}">
+                                            <h5>Cars</h5>
+                                        </a>
+
+                                    </div>
+                                    <div class="card-block px-0 py-3">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+
+                                                <tbody>
+                                                {%for car in cars%}
+                                                <tr class="unread">
+                                                    <td><img src="{{car.image.url}}" class="rounded-circle"
+                                                             style="width:40px;"
+                                                             alt="activity-user">
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1">{{car.brand}}</h6>
+
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1">{{car.name}}</h6>
+
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>{{car.created_at}}
+                                                        </h6>
+                                                    </td>
+                                                    {%if request.user.is_authenticated%}
+                                                    <td>
+                                                        <a href="{%url 'update-car' car.id %}"
+                                                           class="label theme-bg2 text-white f-12">Update</a>
+
+                                                        <a href="{% url 'delete-car' car.id %}"
+                                                           class="label theme-bg text-white f-12">Delete</a>
+
+                                                    </td>
+                                                    {%endif%}
+                                                </tr>
+                                                {%endfor%}
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-8 col-md-6">
+                                <div class="card Recent-Users">
+                                    <div class="card-header">
+                                        <a href="{%url 'purchase-list'%}">
+                                            <h5>purchase</h5>
+                                        </a>
+
+                                    </div>
+                                    <div class="card-block px-0 py-3">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+
+                                                <tbody>
+                                                {%for purchase in purchases%}
+                                                <tr class="unread">
+                                                    <td><img class="rounded-circle" style="width:40px;"
+                                                             src="{%static 'newstatic/assets/images/user/avatar-1.jpg'%}"
+                                                             alt="activity-user">
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="mb-1">{{purchase.user}}</h6>
+
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>{{purchase.car}}
+                                                        </h6>
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>{{purchase.purchase_date}}
+                                                        </h6>
+                                                    </td>
+                                                    <td>
+                                                        {%if purchase.is_delivered %}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>Delivered
+                                                        </h6>
+                                                        {%else%}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-red f-10 m-r-15"></i>Not
+                                                            Delivered</h6>
+                                                        {%endif%}
+                                                    </td>
+                                                    <td>
+                                                        {%if purchase.is_paid %}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>Paid
+                                                        </h6>
+                                                        {%else%}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-red f-10 m-r-15"></i>Not
+                                                            Paid</h6>
+
+                                                        {%endif%}
+                                                    </td>
+                                                    <td>
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>{{purchase.created_at}}
+                                                        </h6>
+                                                    </td>
+
+
+                                                </tr>
+                                                {%endfor%}
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--[ Recent Users ] end-->
+                        </div>
+                        <!-- [ Main Content ] end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

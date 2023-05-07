@@ -1,0 +1,52 @@
+{% extends "newtemplate/layouts/base.html" %}
+{%load static%}
+{% block title %} Update User {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'newstatic/assets/custom-table.css'%}">
+{% endblock stylesheets %}
+
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="main">
+        <div class="sign_up_box">
+            <form method="POST" action="">
+        {%csrf_token%}
+        <div class="input">
+            <input type="text" name="first_name" value="{{user.first_name}}">
+        </div>
+
+        <div class="input">
+            <input type="text" name="last_name" value="{{user.last_name}}">
+        </div>
+
+        <div class="input">
+            <input type="text" name="Address" value="{{user.address}}">
+        </div>
+        <div class="input">
+            <input type="text" name="phone_number" value="{{user.phone_number}}">
+        </div>
+        <div class="input">
+            <input type="email" name="email" value="{{user.email}}">
+        </div>
+        <div class="input">
+            <input type="image" name="avatar" value="{{user.avatar.url}}">
+        </div>
+
+
+        <div>
+            <a href="{{request.META.HTTP_REFERER}}">Back</a>
+            <input class="button" type="submit" value="Confirm">
+
+        </div>
+
+    </form>
+        </div>
+
+
+    </div>
+</div>
+{%endblock content%}
+

@@ -1,0 +1,135 @@
+{% extends "newtemplate/layouts/base.html" %}
+{%load static%}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'newstatic/assets/filter-button-style.css'%}">
+
+
+<!-- [ Main Content ] start -->
+
+
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+
+                            <!--[ Recent Users ] start-->
+
+                            <div class="col-xl-8 col-md-6">
+                                <div class="card Recent-Users">
+                                    <div class="card-header">
+                                        <h4 class="card-title">List of purchases</h4>
+                                        <form class="header__search" action="{%url 'purchase-list'%}" method="GET">
+                                            <label>
+                                                <input type="text" name="q" placeholder="Search..."/>
+                                                <button type="submit"
+                                                        class="filter-button">Filter
+                                                </button>
+                                            </label>
+                                        </form>
+                                        </a>
+
+                                    </div>
+                                    <div class="card-block px-0 py-3">
+                                        <div class="table-responsive">
+                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Selected Car</th>
+                                                    <th scope="col">customer</th>
+                                                    <th scope="col">Purchase Date</th>
+                                                    <th scope="col">Delivery</th>
+                                                    <th scope="col">Payment</th>
+                                                    <th scope="col">Update</th>
+                                                    <th scope="col">Delete</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for purchase in purchases%}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{purchase.car}}</td>
+                                                    <td>{{purchase.user}}</td>
+                                                    <td>{{purchase.purchase_date}}</td>
+                                                    <td>
+                                                        {%if purchase.is_delivered %}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>Delivered
+                                                        </h6>
+                                                        {%else%}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-red f-10 m-r-15"></i>Not
+                                                            Delivered</h6>
+                                                        {%endif%}
+                                                    </td>
+                                                    <td>
+                                                        {%if purchase.is_paid %}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-green f-10 m-r-15"></i>Paid
+                                                        </h6>
+                                                        {%else%}
+                                                        <h6 class="text-muted"><i
+                                                                class="fas fa-circle text-c-red f-10 m-r-15"></i>Not
+                                                            Paid</h6>
+
+                                                        {%endif%}
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{%url 'purchase-update' purchase.id %}">
+                                                            <button type="button"
+                                                                    class="btn btn-primary">Update
+                                                            </button>
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="#">
+                                                            <button type="button"
+                                                                    class="btn btn-primary">Delete
+                                                            </button>
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

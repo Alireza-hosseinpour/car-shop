@@ -1,0 +1,129 @@
+{% extends "newtemplate/layouts/base.html" %}
+{%load static%}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'newstatic/assets/filter-button-style.css'%}">
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+
+<!-- [ Main Content ] start -->
+
+
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li
+                            {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+
+
+                            <!--[ Recent Users ] start-->
+
+                            <div class="col-xl-8 col-md-6">
+                                <div class="card Recent-Users">
+                                    <div class="card-header">
+                                        <h4 class="card-title">List of cars</h4>
+                                        <form class="header__search" action="{%url 'list-of-cars'%}" method="GET">
+                                            <label>
+                                                <input type="text" name="q" placeholder="Search user"/>
+                                                <button type="submit"
+                                                        class="filter-button">Filter
+                                                </button>
+                                            </label>
+                                        </form>
+                                        <a href="{%url 'add-car'%}">
+                                            <button class="filter-button">ADD NEW CAR</button>
+                                        </a>
+
+                                    </div>
+                                    <div class="card-block px-0 py-3">
+                                        <div class="table-responsive">
+                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Brand</th>
+                                                    <th scope="col">Color</th>
+                                                    <th scope="col">Type</th>
+                                                    <th scope="col">Price</th>
+                                                    <th scope="col">Created</th>
+                                                    <th scope="col">Update</th>
+                                                    <th scope="col">Delete</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for car in cars%}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{car.name}}</td>
+                                                    <td>{{car.brand}}</td>
+                                                    <td>{{car.color}}</td>
+                                                    <td>{{car.category}}</td>
+                                                    <td>{{car.price}}</td>
+                                                    <td>{{car.created_at}}</td>
+                                                    <td>
+                                                        <a href="{%url 'update-car' car.id%}">
+                                                            <button type="button"
+                                                                    class="btn btn-primary">Update
+                                                            </button>
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{%url 'delete-car' car.id%}">
+                                                            <button type="button"
+                                                                    class="btn btn-primary">Delete
+                                                            </button>
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

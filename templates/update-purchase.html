@@ -1,0 +1,36 @@
+{% extends "newtemplate/layouts/base.html" %}
+{%load static%}
+{% block title %} Update Purchase {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'newstatic/assets/custom-table.css'%}">
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="main">
+
+        <div class="sign_up_box">
+            <form method="POST" action="">
+                {%csrf_token%}
+                <div class="input">
+                    <input type="text" name="is_delivered" value="{{purchase.is_delivered}}">
+                </div>
+
+                <div class="input">
+                    <input type="text" name="is_paid" value="{{purchase.is_paid}}">
+                </div>
+
+                <div>
+                    <a href="{{request.META.HTTP_REFERER}}">Back</a>
+                    <input class="button" type="submit" value="Confirm">
+
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{%endblock content%}

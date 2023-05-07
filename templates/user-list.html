@@ -1,0 +1,121 @@
+{% extends "newtemplate/layouts/base.html" %}
+{%load static%}
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'newstatic/assets/filter-button-style.css'%}">
+
+
+<!-- [ Main Content ] start -->
+
+
+<div class="pcoded-main-container">
+    <div class="pcoded-wrapper">
+
+        <div class="pcoded-content">
+            <div class="pcoded-inner-content">
+                <!-- [ breadcrumb ] start -->
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li
+                    {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                <!-- [ breadcrumb ] end -->
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <!-- [ Main Content ] start -->
+                        <div class="row">
+
+                            <!--[ Recent Users ] start-->
+
+                            <div class="col-xl-8 col-md-6">
+                                <div class="card Recent-Users">
+                                    <div class="card-header">
+                                        <h4 class="card-title">List of users</h4>
+                                        <form class="header__search" action="{%url 'list-of-users'%}" method="GET">
+                                            <label>
+                                                <input type="text" name="q" placeholder="Search user"/>
+                                                <button type="submit"
+                                                        class="filter-button">Filter
+                                                </button>
+                                            </label>
+                                        </form>
+                                        </a>
+
+                                    </div>
+                                    <div class="card-block px-0 py-3">
+                                        <div class="table-responsive">
+                                            <table id="basic-table" class="table table-striped mb-0" role="grid">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">First Name</th>
+                                                    <th scope="col">Last Name</th>
+                                                    <th scope="col">phone_number</th>
+                                                    <th scope="col">email</th>
+                                                    <th scope="col">Created</th>
+                                                    <th scope="col">Update</th>
+                                                    <th scope="col">Delete</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {%for user in users%}
+                                                <tr>
+                                                    <td>{{forloop.counter}}</td>
+                                                    <td>{{user.first_name}}</td>
+                                                    <td>{{user.last_name}}</td>
+                                                    <td>{{user.phone_number}}</td>
+                                                    <td>{{user.email}}</td>
+                                                    <td>{{user.created_at}}</td>
+                                                    <td>
+                                                        <a href="{%url 'update-user' user.id%}">
+                                                            <button type="button"
+                                                                    class="btn btn-primary">Update
+                                                            </button>
+                                                        </a>
+
+                                                    </td>
+
+                                                    <td>
+                                                        <a href="{%url 'delete' user.id%}">
+                                                            <button type="button"
+                                                                    class="btn btn-primary">Delete
+                                                            </button>
+                                                        </a>
+
+                                                    </td>
+                                                </tr>
+                                                {%endfor%}
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

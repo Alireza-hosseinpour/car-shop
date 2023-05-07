@@ -1,0 +1,12 @@
+SUCCESSFUL:
+  en: Successful
+USER_NOT_FOUND:
+  en: User not found
+DATA_NOT_VALID:
+  en: Data is not valid
+CAR_NOT_FOUND:
+  en: Car not found
+CAR_ADDED_SUCCESSFULLY:
+  en: car added successfully
+INVALID_CODE:
+  en: invalid code
