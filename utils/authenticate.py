@@ -12,7 +12,6 @@ class Authenticate(object):
         token = token.replace("Bearer ", "")
         try:
             payload = jwt.decode(token, key='secret', algorithms='HS256')
-            print(payload)
             user = User.objects.get(id=payload['id'])
             if not user:
                 return None
